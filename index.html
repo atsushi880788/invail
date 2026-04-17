@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invail — 諦めなければ、常識は逆転できる</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap');
+
+  :root {
+    --ink: #111009;
+    --paper: #f0ede6;
+    --red: #b52a1c;
+    --red-dim: rgba(181, 42, 28, 0.08);
+    --stone: #8a8278;
+    --stone-light: #c8c2b8;
+    --rule: rgba(17, 16, 9, 0.1);
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'Noto Serif JP', serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      0deg, transparent, transparent 27px,
+      rgba(17,16,9,0.025) 27px, rgba(17,16,9,0.025) 28px
+    );
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: clamp(40px, 7vw, 80px) clamp(24px, 5vw, 60px);
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-bottom: 28px;
+    border-bottom: 2px solid var(--ink);
+    margin-bottom: 72px;
+    opacity: 0;
+    animation: appear 0.6s ease forwards 0.05s;
+  }
+
+  .logo-block { display: flex; flex-direction: column; gap: 4px; }
+
+  .logo {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+    color: var(--ink);
+    line-height: 1;
+  }
+
+  .logo-sub {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--stone);
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--red);
+    border: 1px solid var(--red);
+    padding: 5px 12px;
+    border-radius: 2px;
+  }
+
+  .badge-dot {
+    width: 4px; height: 4px;
+    background: var(--red);
+    border-radius: 50%;
+    animation: blink 2.4s ease infinite;
+  }
+
+  @keyframes blink {
+    0%, 90%, 100% { opacity: 1; }
+    45% { opacity: 0.2; }
+  }
+
+  .hero {
+    margin-bottom: 64px;
+    opacity: 0;
+    animation: appear 0.7s ease forwards 0.25s;
+  }
+
+  .kicker {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 28px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .kicker::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(181,42,28,0.2);
+    max-width: 80px;
+  }
+
+  h1 {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(36px, 7vw, 72px);
+    font-weight: 800;
+    line-height: 1.18;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    margin-bottom: 32px;
+  }
+
+  h1 .accent {
+    color: var(--red);
+    font-style: italic;
+  }
+
+  .sub-en {
+    font-family: 'DM Mono', monospace;
+    font-size: clamp(11px, 1.4vw, 13px);
+    letter-spacing: 0.06em;
+    color: var(--stone);
+    font-weight: 300;
+    border-left: 2px solid var(--red);
+    padding-left: 14px;
+    line-height: 1.7;
+  }
+
+  .lead {
+    margin-bottom: 56px;
+    opacity: 0;
+    animation: appear 0.7s ease forwards 0.4s;
+  }
+
+  .lead p {
+    font-size: clamp(15px, 2vw, 17px);
+    line-height: 2.0;
+    color: var(--ink);
+    font-weight: 400;
+    max-width: 640px;
+  }
+
+  .lead p + p { margin-top: 20px; }
+
+  .lead strong {
+    font-weight: 700;
+    border-bottom: 1px solid var(--ink);
+    padding-bottom: 1px;
+  }
+
+  .phases {
+    margin-bottom: 64px;
+    opacity: 0;
+    animation: appear 0.7s ease forwards 0.55s;
+  }
+
+  .phases-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 20px;
+  }
+
+  .phases-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    border: 1px solid var(--ink);
+  }
+
+  .phase {
+    padding: 24px 22px;
+    border-right: 1px solid var(--ink);
+    transition: background 0.25s;
+  }
+
+  .phase:last-child { border-right: none; }
+  .phase:hover { background: var(--red-dim); }
+
+  .phase-index {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    color: var(--red);
+    margin-bottom: 10px;
+  }
+
+  .phase-name {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+  }
+
+  .phase-desc {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--stone);
+    font-weight: 300;
+  }
+
+  .divider {
+    border: none;
+    border-top: 1px solid var(--rule);
+    margin: 0 0 48px;
+  }
+
+  .notify {
+    margin-bottom: 72px;
+    opacity: 0;
+    animation: appear 0.7s ease forwards 0.7s;
+  }
+
+  .notify-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 6px;
+  }
+
+  .notify-note {
+    font-size: 12px;
+    color: var(--stone);
+    font-weight: 300;
+    line-height: 1.6;
+    margin-bottom: 20px;
+  }
+
+  .notify-form {
+    display: flex;
+    max-width: 480px;
+    border: 1px solid var(--ink);
+  }
+
+  .notify-input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    font-family: 'DM Mono', monospace;
+    font-size: 13px;
+    padding: 14px 18px;
+    outline: none;
+    letter-spacing: 0.04em;
+  }
+
+  .notify-input::placeholder { color: var(--stone-light); font-size: 12px; }
+
+  .notify-btn {
+    background: var(--ink);
+    border: none;
+    color: var(--paper);
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    cursor: pointer;
+    transition: background 0.2s;
+    white-space: nowrap;
+    border-left: 1px solid var(--ink);
+  }
+
+  .notify-btn:hover { background: var(--red); }
+
+  .success-msg {
+    display: none;
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--red);
+    margin-top: 14px;
+  }
+
+  footer {
+    border-top: 2px solid var(--ink);
+    padding-top: 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    opacity: 0;
+    animation: appear 0.6s ease forwards 0.85s;
+  }
+
+  .footer-copy {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    color: var(--stone);
+    line-height: 1.9;
+  }
+
+  .footer-mission {
+    font-size: 11px;
+    color: var(--stone);
+    font-weight: 300;
+    font-style: italic;
+    text-align: right;
+    line-height: 1.7;
+    max-width: 280px;
+  }
+
+  @keyframes appear {
+    from { opacity: 0; transform: translateY(18px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (max-width: 600px) {
+    .phases-grid { grid-template-columns: 1fr; }
+    .phase { border-right: none; border-bottom: 1px solid var(--ink); }
+    .phase:last-child { border-bottom: none; }
+    .notify-form { flex-direction: column; }
+    .notify-btn { border-left: none; border-top: 1px solid var(--ink); padding: 14px; }
+    footer { flex-direction: column; gap: 16px; align-items: flex-start; }
+    .footer-mission { text-align: left; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="logo-block">
+      <div class="logo">Invail</div>
+      <div class="logo-sub">invail.jp</div>
+    </div>
+    <div class="badge">
+      <span class="badge-dot"></span>
+      準備中
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="kicker">Startup Justice Platform</div>
+    <h1>
+      諦めなければ、<br>
+      常識は<span class="accent">逆転</span>できる。
+    </h1>
+    <div class="sub-en">
+      Don't settle. Invert the odds.<br>
+      Where startup founders refuse to give up.
+    </div>
+  </section>
+
+  <section class="lead">
+    <p>
+      スタートアップの創業者間トラブルで、<strong>泣き寝入りをやめる</strong>ための場所。
+    </p>
+    <p>
+      弁護士費用の壁、情報の非対称性、判例の不在——
+      これらが「諦め」を強いる構造を作っています。
+      Invailはその構造を、メディア・マッチング・ファイナンスの三層で逆転させます。
+    </p>
+  </section>
+
+  <section class="phases">
+    <div class="phases-label">三つのフェーズ</div>
+    <div class="phases-grid">
+      <div class="phase">
+        <div class="phase-index">Phase 01</div>
+        <div class="phase-name">メディア</div>
+        <div class="phase-desc">当事者のリアルタイム記録と法的知識の共有。諦めない人の声を可視化する。</div>
+      </div>
+      <div class="phase">
+        <div class="phase-index">Phase 02</div>
+        <div class="phase-name">マッチング</div>
+        <div class="phase-desc">判例を創出する意志を持つ弁護士との接続。志のある専門家を探す場。</div>
+      </div>
+      <div class="phase">
+        <div class="phase-index">Phase 03</div>
+        <div class="phase-name">ファイナンス</div>
+        <div class="phase-desc">正義を諦めないための訴訟ファイナンス接続。費用の壁を取り除く。</div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <section class="notify">
+    <div class="notify-title">ローンチ通知を受け取る</div>
+    <div class="notify-note">公開時にメールでお知らせします。スパムは送りません。</div>
+    <form class="notify-form" onsubmit="handleSubmit(event)">
+      <input class="notify-input" type="email" placeholder="your@email.com" required />
+      <button class="notify-btn" type="submit">登録する</button>
+    </form>
+    <div class="success-msg" id="successMsg">✓ 登録しました。ローンチ時にお知らせします。</div>
+  </section>
+
+  <footer>
+    <div class="footer-copy">
+      © 2026 Invail<br>
+      invail.jp — Tokyo, Japan
+    </div>
+    <div class="footer-mission">
+      Where startup founders who refuse to give up<br>
+      find justice, allies, and funding.
+    </div>
+  </footer>
+
+</div>
+<script>
+  function handleSubmit(e) {
+    e.preventDefault();
+    document.getElementById('successMsg').style.display = 'block';
+    e.target.reset();
+  }
+</script>
+</body>
+</html>
