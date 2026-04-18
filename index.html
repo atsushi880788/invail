@@ -8,20 +8,22 @@
   @import url('https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;500;600;700;800&family=Noto+Serif+JP:wght@300;400;500&family=DM+Mono:wght@300;400&display=swap');
 
   :root {
-    --ink: #111009;
-    --paper: #f0ede6;
-    --red: #b52a1c;
-    --red-dim: rgba(181, 42, 28, 0.08);
-    --stone: #8a8278;
-    --stone-light: #c8c2b8;
-    --rule: rgba(17, 16, 9, 0.1);
+    --primary:       #3B7A56;
+    --primary-dark:  #2E5C42;
+    --primary-deeper: #1A3528;
+    --secondary:     #7AB89A;
+    --bg:            #E2E0DA;
+    --gold:          #C9A84C;
+    --text:          #1A2E22;
+    --muted:         #6A8070;
+    --on-green:      #E8F0EB;
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   body {
-    background: var(--paper);
-    color: var(--ink);
+    background: var(--bg);
+    color: var(--text);
     font-family: 'Noto Serif JP', serif;
     min-height: 100vh;
     overflow-x: hidden;
@@ -33,39 +35,38 @@
     inset: 0;
     background-image: repeating-linear-gradient(
       0deg, transparent, transparent 27px,
-      rgba(17,16,9,0.025) 27px, rgba(17,16,9,0.025) 28px
+      rgba(26, 53, 40, 0.03) 27px, rgba(26, 53, 40, 0.03) 28px
     );
     pointer-events: none;
     z-index: 0;
   }
 
-  .wrap {
+  /* ── HEADER — 緑背景 ── */
+  header {
+    background: var(--primary-dark);
     position: relative;
     z-index: 1;
-    max-width: 900px;
-    margin: 0 auto;
-    padding: clamp(40px, 7vw, 80px) clamp(24px, 5vw, 60px);
-  }
-
-  header {
-    display: flex;
-    justify-content: space-between;
-    align-items: baseline;
-    padding-bottom: 28px;
-    border-bottom: 2px solid var(--ink);
-    margin-bottom: 72px;
     opacity: 0;
     animation: appear 0.6s ease forwards 0.05s;
+  }
+
+  .header-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: clamp(20px, 4vw, 32px) clamp(24px, 5vw, 60px);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .logo-block { display: flex; flex-direction: column; gap: 4px; }
 
   .logo {
     font-family: 'Shippori Mincho', serif;
-    font-size: clamp(28px, 4vw, 38px);
+    font-size: clamp(24px, 3.5vw, 32px);
     font-weight: 800;
-    letter-spacing: 0.04em;
-    color: var(--ink);
+    letter-spacing: 0.08em;
+    color: var(--on-green);
     line-height: 1;
   }
 
@@ -74,7 +75,7 @@
     font-size: 9px;
     letter-spacing: 0.22em;
     text-transform: uppercase;
-    color: var(--stone);
+    color: rgba(232, 240, 235, 0.5);
   }
 
   .badge {
@@ -85,15 +86,15 @@
     font-size: 9px;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--red);
-    border: 1px solid var(--red);
+    color: var(--gold);
+    border: 1px solid var(--gold);
     padding: 5px 12px;
     border-radius: 2px;
   }
 
   .badge-dot {
     width: 4px; height: 4px;
-    background: var(--red);
+    background: var(--gold);
     border-radius: 50%;
     animation: blink 2.4s ease infinite;
   }
@@ -103,6 +104,16 @@
     45% { opacity: 0.2; }
   }
 
+  /* ── WRAP ── */
+  .wrap {
+    position: relative;
+    z-index: 1;
+    max-width: 900px;
+    margin: 0 auto;
+    padding: clamp(48px, 7vw, 80px) clamp(24px, 5vw, 60px);
+  }
+
+  /* ── HERO ── */
   .hero {
     margin-bottom: 64px;
     opacity: 0;
@@ -114,7 +125,7 @@
     font-size: 10px;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--red);
+    color: var(--primary);
     margin-bottom: 28px;
     display: flex;
     align-items: center;
@@ -125,36 +136,34 @@
     content: '';
     flex: 1;
     height: 1px;
-    background: rgba(181,42,28,0.2);
+    background: rgba(59, 122, 86, 0.3);
     max-width: 80px;
   }
 
   h1 {
     font-family: 'Shippori Mincho', serif;
-    font-size: clamp(36px, 7vw, 72px);
+    font-size: clamp(34px, 7vw, 70px);
     font-weight: 800;
     line-height: 1.18;
     letter-spacing: -0.01em;
-    color: var(--ink);
+    color: var(--text);
     margin-bottom: 32px;
   }
 
-  h1 .accent {
-    color: var(--red);
-    font-style: italic;
-  }
+  h1 .accent { color: var(--gold); font-style: italic; }
 
   .sub-en {
     font-family: 'DM Mono', monospace;
     font-size: clamp(11px, 1.4vw, 13px);
     letter-spacing: 0.06em;
-    color: var(--stone);
+    color: var(--muted);
     font-weight: 300;
-    border-left: 2px solid var(--red);
+    border-left: 2px solid var(--gold);
     padding-left: 14px;
     line-height: 1.7;
   }
 
+  /* ── LEAD ── */
   .lead {
     margin-bottom: 56px;
     opacity: 0;
@@ -164,7 +173,7 @@
   .lead p {
     font-size: clamp(15px, 2vw, 17px);
     line-height: 2.0;
-    color: var(--ink);
+    color: var(--text);
     font-weight: 400;
     max-width: 640px;
   }
@@ -173,10 +182,11 @@
 
   .lead strong {
     font-weight: 700;
-    border-bottom: 1px solid var(--ink);
+    border-bottom: 1px solid var(--primary-dark);
     padding-bottom: 1px;
   }
 
+  /* ── PHASES ── */
   .phases {
     margin-bottom: 64px;
     opacity: 0;
@@ -188,55 +198,109 @@
     font-size: 9px;
     letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--stone);
+    color: var(--muted);
     margin-bottom: 20px;
   }
 
   .phases-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    border: 1px solid var(--ink);
+    border: 1px solid var(--primary-deeper);
   }
 
   .phase {
     padding: 24px 22px;
-    border-right: 1px solid var(--ink);
+    border-right: 1px solid var(--primary-deeper);
     transition: background 0.25s;
   }
 
   .phase:last-child { border-right: none; }
-  .phase:hover { background: var(--red-dim); }
+  .phase:hover { background: rgba(59, 122, 86, 0.07); }
 
   .phase-index {
     font-family: 'DM Mono', monospace;
     font-size: 9px;
     letter-spacing: 0.2em;
-    color: var(--red);
+    color: var(--primary);
     margin-bottom: 10px;
   }
+
+  .phase-index.gold { color: var(--gold); }
 
   .phase-name {
     font-family: 'Shippori Mincho', serif;
     font-size: 17px;
     font-weight: 700;
-    color: var(--ink);
+    color: var(--text);
     margin-bottom: 8px;
-    letter-spacing: 0.02em;
   }
 
   .phase-desc {
     font-size: 12px;
     line-height: 1.7;
-    color: var(--stone);
+    color: var(--muted);
     font-weight: 300;
   }
 
+  /* ── DIVIDER ── */
   .divider {
     border: none;
-    border-top: 1px solid var(--rule);
+    border-top: 1px solid rgba(59, 122, 86, 0.2);
     margin: 0 0 48px;
   }
 
+  /* ── NOTE CARD STRIP — 緑背景 ── */
+  .note-strip {
+    background: var(--primary-dark);
+    margin: 0 0 64px;
+    opacity: 0;
+    animation: appear 0.7s ease forwards 0.6s;
+  }
+
+  .note-strip-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: clamp(24px, 4vw, 36px) clamp(24px, 5vw, 60px);
+  }
+
+  .note-strip-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(232, 240, 235, 0.45);
+    margin-bottom: 16px;
+  }
+
+  .note-card {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .note-card-title {
+    font-family: 'Shippori Mincho', serif;
+    font-size: clamp(14px, 2vw, 17px);
+    color: var(--on-green);
+    line-height: 1.6;
+    font-weight: 600;
+    flex: 1;
+  }
+
+  .note-card-tag {
+    font-size: 9px;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 3px 8px;
+    border-radius: 2px;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.1em;
+    white-space: nowrap;
+    margin-top: 4px;
+  }
+
+  /* ── NOTIFY ── */
   .notify {
     margin-bottom: 72px;
     opacity: 0;
@@ -247,13 +311,13 @@
     font-family: 'Shippori Mincho', serif;
     font-size: 18px;
     font-weight: 700;
-    color: var(--ink);
+    color: var(--text);
     margin-bottom: 6px;
   }
 
   .notify-note {
     font-size: 12px;
-    color: var(--stone);
+    color: var(--muted);
     font-weight: 300;
     line-height: 1.6;
     margin-bottom: 20px;
@@ -262,14 +326,14 @@
   .notify-form {
     display: flex;
     max-width: 480px;
-    border: 1px solid var(--ink);
+    border: 1px solid var(--primary-deeper);
   }
 
   .notify-input {
     flex: 1;
     background: transparent;
     border: none;
-    color: var(--ink);
+    color: var(--text);
     font-family: 'DM Mono', monospace;
     font-size: 13px;
     padding: 14px 18px;
@@ -277,12 +341,13 @@
     letter-spacing: 0.04em;
   }
 
-  .notify-input::placeholder { color: var(--stone-light); font-size: 12px; }
+  .notify-input::placeholder { color: var(--secondary); font-size: 12px; }
+  .notify-input:focus { background: rgba(59, 122, 86, 0.04); }
 
   .notify-btn {
-    background: var(--ink);
+    background: var(--primary-dark);
     border: none;
-    color: var(--paper);
+    color: var(--on-green);
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.18em;
@@ -291,22 +356,22 @@
     cursor: pointer;
     transition: background 0.2s;
     white-space: nowrap;
-    border-left: 1px solid var(--ink);
   }
 
-  .notify-btn:hover { background: var(--red); }
+  .notify-btn:hover { background: var(--primary-deeper); }
 
   .success-msg {
     display: none;
     font-family: 'DM Mono', monospace;
     font-size: 11px;
     letter-spacing: 0.12em;
-    color: var(--red);
+    color: var(--primary);
     margin-top: 14px;
   }
 
+  /* ── FOOTER ── */
   footer {
-    border-top: 2px solid var(--ink);
+    border-top: 2px solid var(--primary-deeper);
     padding-top: 24px;
     display: flex;
     justify-content: space-between;
@@ -319,13 +384,13 @@
     font-family: 'DM Mono', monospace;
     font-size: 10px;
     letter-spacing: 0.12em;
-    color: var(--stone);
+    color: var(--muted);
     line-height: 1.9;
   }
 
   .footer-mission {
     font-size: 11px;
-    color: var(--stone);
+    color: var(--muted);
     font-weight: 300;
     font-style: italic;
     text-align: right;
@@ -340,97 +405,120 @@
 
   @media (max-width: 600px) {
     .phases-grid { grid-template-columns: 1fr; }
-    .phase { border-right: none; border-bottom: 1px solid var(--ink); }
+    .phase { border-right: none; border-bottom: 1px solid var(--primary-deeper); }
     .phase:last-child { border-bottom: none; }
+    .note-card { flex-direction: column; gap: 12px; }
     .notify-form { flex-direction: column; }
-    .notify-btn { border-left: none; border-top: 1px solid var(--ink); padding: 14px; }
+    .notify-btn { padding: 14px; }
     footer { flex-direction: column; gap: 16px; align-items: flex-start; }
     .footer-mission { text-align: left; }
   }
 </style>
 </head>
 <body>
-<div class="wrap">
 
+  <!-- ヘッダー：緑背景 -->
   <header>
-    <div class="logo-block">
-      <div class="logo">Invail</div>
-      <div class="logo-sub">invail.jp</div>
-    </div>
-    <div class="badge">
-      <span class="badge-dot"></span>
-      準備中
+    <div class="header-inner">
+      <div class="logo-block">
+        <div class="logo">INVAIL</div>
+        <div class="logo-sub">invail.jp</div>
+      </div>
+      <div class="badge">
+        <span class="badge-dot"></span>
+        準備中
+      </div>
     </div>
   </header>
 
-  <section class="hero">
-    <div class="kicker">Startup Justice Platform</div>
-    <h1>
-      諦めなければ、<br>
-      常識は<span class="accent">逆転</span>できる。
-    </h1>
-    <div class="sub-en">
-      Don't settle. Invert the odds.<br>
-      Where startup founders refuse to give up.
-    </div>
-  </section>
+  <div class="wrap">
 
-  <section class="lead">
-    <p>
-      スタートアップの創業者間トラブルで、<strong>泣き寝入りをやめる</strong>ための場所。
-    </p>
-    <p>
-      弁護士費用の壁、情報の非対称性、判例の不在——
-      これらが「諦め」を強いる構造を作っています。
-      Invailはその構造を、メディア・マッチング・ファイナンスの三層で逆転させます。
-    </p>
-  </section>
-
-  <section class="phases">
-    <div class="phases-label">三つのフェーズ</div>
-    <div class="phases-grid">
-      <div class="phase">
-        <div class="phase-index">Phase 01</div>
-        <div class="phase-name">メディア</div>
-        <div class="phase-desc">当事者のリアルタイム記録と法的知識の共有。諦めない人の声を可視化する。</div>
+    <section class="hero">
+      <div class="kicker">Startup Justice Platform</div>
+      <h1>
+        諦めなければ、<br>
+        常識は<span class="accent">逆転</span>できる。
+      </h1>
+      <div class="sub-en">
+        Don't settle. Invert the odds.<br>
+        Where startup founders refuse to give up.
       </div>
-      <div class="phase">
-        <div class="phase-index">Phase 02</div>
-        <div class="phase-name">マッチング</div>
-        <div class="phase-desc">判例を創出する意志を持つ弁護士との接続。志のある専門家を探す場。</div>
+    </section>
+
+    <section class="lead">
+      <p>
+        スタートアップの創業者間トラブルで、<strong>泣き寝入りをやめる</strong>ための場所。
+      </p>
+      <p>
+        弁護士費用の壁、情報の非対称性、判例の不在——
+        これらが「諦め」を強いる構造を作っています。
+        Invailはその構造を、メディア・マッチング・ファイナンスの三層で逆転させます。
+      </p>
+    </section>
+
+    <section class="phases">
+      <div class="phases-label">三つのフェーズ</div>
+      <div class="phases-grid">
+        <div class="phase">
+          <div class="phase-index">Phase 01</div>
+          <div class="phase-name">Lore</div>
+          <div class="phase-desc">当事者の記録・判例・戦い方のノウハウを蓄積・共有する場。諦めなかった人たちの知恵の体系。</div>
+        </div>
+        <div class="phase">
+          <div class="phase-index">Phase 02</div>
+          <div class="phase-name">Ally</div>
+          <div class="phase-desc">共に戦う意志を持つ弁護士と出会う場。判例を創出する同志を得る。</div>
+        </div>
+        <div class="phase">
+          <div class="phase-index gold">Phase 03</div>
+          <div class="phase-name">Fund</div>
+          <div class="phase-desc">正義を諦めないための訴訟ファイナンス接続。費用の壁を取り除く。</div>
+        </div>
       </div>
-      <div class="phase">
-        <div class="phase-index">Phase 03</div>
-        <div class="phase-name">ファイナンス</div>
-        <div class="phase-desc">正義を諦めないための訴訟ファイナンス接続。費用の壁を取り除く。</div>
+    </section>
+
+  </div>
+
+  <!-- 緑背景ストリップ：noteカードプレビュー -->
+  <div class="note-strip">
+    <div class="note-strip-inner">
+      <div class="note-strip-label">INVAIL — Vol.01 preview</div>
+      <div class="note-card">
+        <div class="note-card-title">
+          なぜ私は800万円の弁護士費用を断り、<br>AIと共に本人訴訟を選んだのか
+        </div>
+        <div class="note-card-tag">創業者間紛争</div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <hr class="divider">
+  <div class="wrap" style="padding-top: 0;">
 
-  <section class="notify">
-    <div class="notify-title">ローンチ通知を受け取る</div>
-    <div class="notify-note">公開時にメールでお知らせします。スパムは送りません。</div>
-    <form class="notify-form" onsubmit="handleSubmit(event)">
-      <input class="notify-input" type="email" placeholder="your@email.com" required />
-      <button class="notify-btn" type="submit">登録する</button>
-    </form>
-    <div class="success-msg" id="successMsg">✓ 登録しました。ローンチ時にお知らせします。</div>
-  </section>
+    <hr class="divider">
 
-  <footer>
-    <div class="footer-copy">
-      © 2026 Invail<br>
-      invail.jp — Tokyo, Japan
-    </div>
-    <div class="footer-mission">
-      Where startup founders who refuse to give up<br>
-      find justice, allies, and funding.
-    </div>
-  </footer>
+    <section class="notify">
+      <div class="notify-title">ローンチ通知を受け取る</div>
+      <div class="notify-note">公開時にメールでお知らせします。スパムは送りません。</div>
+      <form class="notify-form" onsubmit="handleSubmit(event)">
+        <input class="notify-input" type="email" placeholder="your@email.com" required />
+        <button class="notify-btn" type="submit">登録する</button>
+      </form>
+      <div class="success-msg" id="successMsg">✓ 登録しました。ローンチ時にお知らせします。</div>
+    </section>
 
-</div>
+    <footer>
+      <div class="footer-copy">
+        © 2026 Invail<br>
+        invail.jp — Tokyo, Japan
+      </div>
+      <div class="footer-mission">
+        Where startup founders who refuse to give up<br>
+        find justice, allies, and funding.
+      </div>
+    </footer>
+
+  </div>
+
 <script>
   function handleSubmit(e) {
     e.preventDefault();
